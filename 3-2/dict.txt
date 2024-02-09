@@ -1,0 +1,6 @@
+s=smtdj
+smtdj=s
+yes=nope
+rjulf=mdlsaz
+nope=yes
+mdlsaz=rjulf
