@@ -1,12 +1,12 @@
+//
+// Created by Misha on 20.02.2024.
+//
 
 #ifndef OOP_2_EXPANDTEMPLATE_H
 #define OOP_2_EXPANDTEMPLATE_H
-
-#include "string"
-#include "map"
+#include "Trie.h"
 
 
-std::string ExpandTemplate(std::string const& tpl, std::map<std::string, std::string> const& params);
-
+std::string ExpandTemplate(const std::string& line, const std::map<std::string, std::string>& params);
 
 #endif //OOP_2_EXPANDTEMPLATE_H

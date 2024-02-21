@@ -40,7 +40,7 @@ void GetTranslationForNewWord(const string& line, bool& changed, dictType& dicti
     }
 }
 
-bool ExitSaveDictionary(const string &dictFileName, const bool changed, const dictType& dictionary)
+bool ExitSaveDictionary(const string& dictFileName, const bool changed, const dictType& dictionary)
 {
     if (changed)
     {

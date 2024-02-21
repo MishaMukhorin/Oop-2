@@ -77,13 +77,47 @@ TEST(ParseURLTest, InvalidURLInvalidPort) {
     EXPECT_FALSE(ParseURL("http://www.mysite.com:0/docs/document1.html", protocol, port, host, document));
 }
 
+TEST(ParseURLTest, InvalidURLInvalidPort2) {
+    Protocol protocol;
+    int port;
+    std::string host, document;
+    EXPECT_FALSE(ParseURL("http://www.mysite.com:65536/docs/document1.html", protocol, port, host, document));
+}
+
+TEST(ParseURLTest, InvalidURLInvalidPort3) {
+    Protocol protocol;
+    int port;
+    std::string host, document;
+    EXPECT_FALSE(ParseURL("http://www.mysite.com:-1/docs/document1.html", protocol, port, host, document));
+}
+
+TEST(ParseURLTest, ValidURLValidMaxPort) {
+    Protocol protocol;
+    int port;
+    std::string host, document;
+    EXPECT_TRUE(ParseURL("http://www.mysite.com:65535/docs/document1.html", protocol, port, host, document));
+    EXPECT_EQ(protocol, Protocol::HTTP);
+    EXPECT_EQ(port, 65535);
+    EXPECT_EQ(host, "www.mysite.com");
+    EXPECT_EQ(document, "docs/document1.html");
+}
+TEST(ParseURLTest, ValidURLValidMinPort) {
+    Protocol protocol;
+    int port;
+    std::string host, document;
+    EXPECT_TRUE(ParseURL("http://www.mysite.com:1/docs/document1.html", protocol, port, host, document));
+    EXPECT_EQ(protocol, Protocol::HTTP);
+    EXPECT_EQ(port, 1);
+    EXPECT_EQ(host, "www.mysite.com");
+    EXPECT_EQ(document, "docs/document1.html");
+}
+
 TEST(ParseURLTest, InvalidURLInvalidHost) {
     Protocol protocol;
     int port;
     std::string host, document;
     EXPECT_FALSE(ParseURL("http:///docs/document1.html", protocol, port, host, document));
 }
-
 
 TEST(ParseURLTest, InvalidURLMissingProtocol) {
     Protocol protocol;
@@ -96,7 +130,7 @@ TEST(ParseURLTest, InvalidURLMissingHost) {
     Protocol protocol;
     int port;
     std::string host, document;
-    EXPECT_FALSE(ParseURL("http:///docs/document1.html", protocol, port, host, document));
+    EXPECT_FALSE(ParseURL("http://", protocol, port, host, document));
 }
 
 TEST(ParseURLTest, InvalidURLMissingDocument) {
