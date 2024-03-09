@@ -1,4 +1,7 @@
 #include "PrimeNumsSet.h"
+#include "chrono"
+
+
 
 int CharToInt(const char c, bool& wasError)
 {
@@ -11,10 +14,10 @@ int CharToInt(const char c, bool& wasError)
     return 0;
 }
 
-int StringToNum(const std::string& str, int number, bool& wasError)
+long StringToNum(const std::string& str, long number, bool& wasError)
 {
     wasError = false;
-    int result = 0;
+    long result = 0;
     int sign = 1;
     for (char c : str)
     {
@@ -28,7 +31,8 @@ int StringToNum(const std::string& str, int number, bool& wasError)
             wasError = true;
             break;
         }
-        if (result > (std::numeric_limits<int>::max() - digit) / number)
+        long max = std::numeric_limits<long>::max();
+        if (result > (max - digit) / number)
         {
             wasError = true;
             break;
@@ -39,21 +43,45 @@ int StringToNum(const std::string& str, int number, bool& wasError)
         return 0;
     return result * sign;
 }
-int CheckOutPrimes(std::string input)
+long CheckOutPrimes(const std::string& input)
 {
     bool wasError = false;
 
-    int upperBound = StringToNum(input, 10, wasError);
+    long upperBound = StringToNum(input, 10, wasError);
     if (wasError || upperBound < 0)
     {
         std::cout << "Error: invalid source upper bound.\n";
         return 1;
     }
+    auto start1 = std::chrono::high_resolution_clock::now();
+    auto start2 = std::chrono::high_resolution_clock::now();
+    std::vector<long> primes;
 
-    std::set<int> primes = GeneratePrimeNumbersSet(upperBound);
+    auto minDur = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::seconds(10));
+    auto avDur = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::seconds(0));
+    for (int i = 0; i < 103; ++i)
+    {
+            auto start = std::chrono::high_resolution_clock::now();
+            primes = GeneratePrimeNumbersSet(upperBound);
+            auto end = std::chrono::high_resolution_clock::now();
 
-    std::set<int>::iterator it, itn;
-    int maxDiff = 0, maxs, maxb;
+        auto duration = duration_cast<std::chrono::microseconds>(end - start);
+        if (minDur > duration)
+        {
+            minDur = duration;
+        }
+        avDur += duration;
+        if (i % 100 == 0)
+            std::cout << i << std::endl;
+    }
+
+    std::cout << "min: " << minDur.count() / 1000 << " millisecondseconds " << minDur.count() % 1000 << " microseconds for " <<  upperBound << std::endl;
+    std::cout << "average: " << avDur.count() / 50000  << " millisecondseconds " << avDur.count() / 50 % 1000 << " microseconds for " <<  upperBound << std::endl;
+
+    std::cout << primes.size() << std::endl;
+
+    std::vector<long>::iterator it, itn;
+    long maxDiff = 0, maxs, maxb;
     itn = primes.begin();
 
     for(it = primes.begin(); it != primes.end(); it++)

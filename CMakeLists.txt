@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(Oop-2)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "-static")
 
 add_subdirectory(lib/googletest)
@@ -25,8 +25,11 @@ add_executable(PrimeSetOut 4-4/PrimesOut.cpp 4-4/PrimeNumsSet.cpp)
 add_executable(ParseURLTests 5-1/tests/ParseURLTests.cpp 5-1/ParseURL.cpp)
 add_executable(ParseURLOut 5-1/ParseURLOut.cpp 5-1/ParseURL.cpp)
 
-add_executable(ExpandTemplateTests 6-1/tests/ExpandTemplateTests.cpp 6-1/ExpandTemplate.cpp 6-1/Trie.cpp)
-add_executable(ExpandTemplate 6-1/ExpandTemplateOut.cpp 6-1/ExpandTemplate.cpp 6-1/Trie.cpp)
+add_executable(ExpandTemplateTests 6-1/tests/ExpandTemplateTests.cpp 6-1/Trie.cpp)
+add_executable(ExpandTemplate 6-1/ExpandTemplateOut.cpp 6-1/Trie.cpp)
+
+add_executable(EvaluateExprTests 7-1/tests/EvaluateExprTests.cpp 7-1/EvaluateExpr.cpp)
+add_executable(EvaluateExpr 7-1/EvaluateExprOut.cpp 7-1/EvaluateExpr.cpp)
 
 
 target_link_libraries(HTMLEncodeTests gtest_main)
@@ -36,6 +39,7 @@ target_link_libraries(PrimeSetTests gtest_main)
 target_link_libraries(DictionaryTests gtest_main)
 target_link_libraries(ParseURLTests gtest_main)
 target_link_libraries(ExpandTemplateTests gtest_main)
+target_link_libraries(EvaluateExprTests gtest_main)
 
 
 

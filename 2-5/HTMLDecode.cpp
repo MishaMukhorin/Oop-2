@@ -12,8 +12,11 @@ struct Entity
 
 using namespace std::literals;
 
-constexpr std::array<Entity, 5> ENTITIES  = {Entity{"quot;"sv, '"'}, {"apos;"sv, '\''},
-                                             {"amp;"sv, '&'}, {"lt;"sv, '<'},
+constexpr std::array<Entity, 5> ENTITIES  = {Entity
+                                             {"quot;"sv, '"'},
+                                             {"apos;"sv, '\''},
+                                             {"amp;"sv, '&'},
+                                             {"lt;"sv, '<'},
                                              {"gt;"sv, '>'}};
 
 

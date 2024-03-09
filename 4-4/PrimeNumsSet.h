@@ -5,6 +5,6 @@
 #include <iostream>
 #include <string>
 
-std::vector<int> GeneratePrimeNumbersSet(int upperBound);
+std::vector<long> GeneratePrimeNumbersSet(long upperBound);
 
 

@@ -2,7 +2,7 @@
 // Created by Misha on 19.02.2024.
 //
 
-#include "ExpandTemplate.h"
+#include "Trie.h"
 #include "iostream"
 #include "fstream"
 
@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
     }
     std::string const input_file = argv[1];
     std::string const output_file = argv[2];
-    std::map<std::string, std::string> params;
+    std::unordered_map<std::string, std::string> params;
     for (int i = 3; i < argc; i += 2) {
         params[argv[i]] = argv[i + 1];
     }
@@ -29,8 +29,10 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     std::string line;
+    Trie Tri(params);
+
     while (std::getline(inputFile, line)) {
-        outputFile << ExpandTemplate(line, params) << "\n";
+        outputFile << Tri.ExpandTemplate(line) << "\n";
     }
     return 0;
 }
